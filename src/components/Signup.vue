@@ -13,19 +13,30 @@
         type="password"
         v-model="password"
         placeholder="Password" />
-    <button>Login</button>
+    <button>Sign up</button>
   </form>
 </template>
 
 <script>
 import {ref} from "vue"
+import {auth} from "../firebase/config"
 export default {
     setup(){
         let displayName = ref("");
         let password = ref("");
         let email = ref("");
-        let signUp = () => {
-            console.log(displayName.value, password.value, email.value);
+        let error = ref(null);
+
+        let signUp = async() => {
+            try{
+                let response = await auth.createUserWithEmailAndPassword(email.value,password.value);
+                if(!response){
+                    throw new Error("could not create new user");
+                }
+                console.log(response.user);
+            }catch(err){
+                error.value = err.message;
+            }
         }
         return {displayName, password, email, signUp};
     }

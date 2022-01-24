@@ -9,7 +9,7 @@
         type="password"
         v-model="password"
         placeholder="Password" />
-    <button>Sign up</button>
+    <button>Login</button>
   </form>
 </template>
 
