@@ -9,20 +9,26 @@
         type="password"
         v-model="password"
         placeholder="Password" />
+    <div class="error" v-if="error"> {{error}} </div>
     <button>Login</button>
   </form>
 </template>
 
 <script>
 import {ref} from "vue"
+import userLogin from "../composables/useLogin"
 export default {
     setup(){
         let password = ref("");
         let email = ref("");
-        let login = () => {
-            console.log(password.value, email.value);
+        let {error, signIn} = userLogin();
+        let login = async() => {
+            let response = await signIn(email.value, password.value);
+            if(response){
+                console.log(response.user);
+            }
         }
-        return { password, email, login};
+        return { password, email, login, error};
     }
 }
 </script>
