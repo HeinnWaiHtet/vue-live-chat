@@ -13,6 +13,7 @@
         type="password"
         v-model="password"
         placeholder="Password" />
+    <div v-if="error" class="error"> {{error}} </div>
     <button>Sign up</button>
   </form>
 </template>
@@ -30,9 +31,11 @@ export default {
 
         let signUp = async() => {
             let res = await createAccount(email.value, password.value, displayName.value);
-            console.log(res);
+            if(res){
+                console.log(res);
+            }
         }
-        return {displayName, password, email, signUp};
+        return {displayName, password, email, signUp, error};
     }
 }
 </script>

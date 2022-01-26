@@ -11,6 +11,7 @@ let createAccount = async (email, password, displayName) => {
       throw new Error("could not create new user");
     }
     response.user.updateProfile({ displayName: displayName });
+    error.value = "";
     return response;
   } catch (err) {
     error.value = err.message;
