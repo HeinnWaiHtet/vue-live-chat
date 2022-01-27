@@ -30,7 +30,9 @@ export default {
             }
             
             // add new chat message to firebase
-            await addDoc(chat);
+            if(chat.message){
+                await addDoc(chat);
+            }
             message.value = '';
         }
 
